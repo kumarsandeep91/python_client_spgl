@@ -1,0 +1,10 @@
+NOTES:
+
+How do I implement destructors since Python is garbage collected?
+Specifically in GObject, ~Gobject calls pp->deleteGObject, will this be a problem?
+
+Line 205 of gobjects.cpp fillFlag = true? shouldn't it be fillFlag = flag?
+
+Line 680-683 of gobjects.cpp
+should be bounds.getX + bounds.getWidth? same for y
+also last line should be yMax = max( not yMin = min(
