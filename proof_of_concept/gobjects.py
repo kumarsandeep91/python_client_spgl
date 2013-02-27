@@ -35,9 +35,7 @@ class GObject:
 		
 		self.x = x
 		self.y = y
-		# HERE
 		platform.Platform().setLocation(self, x, y)
-		# TODO pp.setLocation(self, x, y)
 		
 	def move(self, dx, dy):
 		self.setLocation(x=self.x + dx, y=self.y + dy)
@@ -74,7 +72,7 @@ class GObject:
 		if(rgb == None): return
 		
 		self.color = gwindow.convertRGBToColor(rgb)
-		# TODO pp.setColor(self, self.color)
+		platform.Platform().setColor(self, self.color)
 		
 	def getColor(self):
 		return self.color
@@ -208,6 +206,8 @@ class GRect(GObject):
 		if(rgb == None): return
 		
 		color = gwindow.convertRGBToColor(rgb)
+		# HERE
+		platform.Platform().setFillColor(self, color)
 		# TODO pp.setFillColor(self, color)
 		
 	def getFillColor(self):

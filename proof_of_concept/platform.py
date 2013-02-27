@@ -54,6 +54,46 @@ class Platform:
 		print command
 		self.putPipe(command)
 		
+	def setColor(self, gobj, color):
+		command = "GObject.setColor(\"" + str(gobj.ID) + "\", \"" + color + "\")"
+		print command
+		self.putPipe(command)
+		
+	def setFillColor(self, gobj, color):
+		command = "GObject.setFillColor(\"" + str(gobj.ID) + "\", \"" + color + "\")"
+		print command
+		self.putPipe(command)
+		
+	def close(self, gw):
+		command = "GWindow.close(\"" + str(gw.gwd.ID) + "\")"
+		print command
+		self.putPipe(command)
+		
+	def deleteGWindow(self, gw):
+		command = "GWindow.delete(\"" + str(gw.gwd.ID) + "\")"
+		print command
+		self.putPipe(command)
+		
+	def requestFocus(self, gw):
+		command = "GWindow.requestFocus(\"" + str(gw.gwd.ID) + "\")"
+		print command
+		self.putPipe(command)
+		
+	def clear(self, gw):
+		command = "GWindow.clear(\"" + str(gw.gwd.ID) + "\")"
+		print command
+		self.putPipe(command)
+		
+	def repaint(self, gw):
+		command = "GWindow.repaint(\"" + str(gw.gwd.ID) + "\")"
+		print command
+		self.putPipe(command)
+		
+	def setVisible(self, gw, flag):
+		command = "GWindow.setVisible(\"" + str(gw.gwd.ID) + "\", " + \
+				   str(flag).lower() + ")"
+		print command
+		self.putPipe(command)
 
   # TODO pp.remove(gobj)
   # TODO pp.setSize(self, width, height)
@@ -63,16 +103,12 @@ class Platform:
   # TODO pp.getBounds(self)
   
   # TODO pp.setLineWidth(self, lineWidth)
-  # TODO pp.setColor(self, self.color)
   # TODO pp.scale(self, sx, sy)
   # TODO pp.rotate(self, sx, sy)
-  # TODO pp.setFillColor(self, color)
   # TODO pp.sendForward(gobj)
   # TODO pp.sendToFront(gobj)
   # TODO pp.sendBackward(gobj)
   # TODO pp.sendToBack(gobj)
-  # TODO pp.close(self)
-  # TODO pp.deleteGWindow(self)
   # TODO pp.requestFocus(self)
   # TODO pp.clear(self)
   # TODO pp.repaint(self)

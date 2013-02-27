@@ -55,9 +55,7 @@ class GWindow:
 		self.gwd = GWindowData(width, height, visible)
 		self.gwd.top = gobjects.GCompound()
 		
-		# HERE
 		platform.Platform().createGWindow(self, width, height, self.gwd.top)
-		# TODO pp.createGWindow(self, width, height, self.gwd.top)
 		
 		self.setColor("BLACK")
 		self.setVisible(visible)
@@ -69,9 +67,8 @@ class GWindow:
 		return self.gwd != other.gwd
 	
 	def close(self):
-		dummy = 1
-		# TODO pp.close(self)
-		# TODO pp.deleteGWindow(self)
+		platform.Platform().close(self)
+		platform.Platform().deleteGWindow(self)
 	
 	def requestFocus(self):
 		# TODO pp.requestFocus(self)
@@ -238,8 +235,8 @@ class GWindow:
 def convertColorToRGB(colorName):
 	if(colorName == ""): return -1
 	if(colorName[0] == "#"):
-		# TODO hex colors
-		return -1
+		colorName = "0x" + colorName[1:]
+		return int(colorName, base = 16)
 		
 	name = canonicalColorName(colorName)
 	if(len(__COLOR_TABLE__) == 0): initColorTable()
@@ -250,8 +247,8 @@ def convertColorToRGB(colorName):
 	return __COLOR_TABLE__[name]
 
 def convertRGBToColor(rgb):
-	# TODO convert int to string
-	return "#000000"
+	hexString = hex(rgb)
+	return "#" + hexString[2:].upper()
 	
 def exitGraphics():
 	# TODO pp.exitGraphics()
