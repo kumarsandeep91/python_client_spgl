@@ -4,14 +4,18 @@ import time
 import gwindow
 import gobjects
 import gtypes
+import strlib
+import Queue
 
 class Platform:
 
 	BACKEND = None
+	EVENT_QUEUE = None
 
 	def __init__(self):
 		if(Platform.BACKEND == None):
 			self.startupMain()
+			Platform.EVENT_QUEUE = Queue.Queue()
 		
 	def createGCompound(self, gobj):
 		command = "GCompound.create(\"" + str(gobj.ID) + "\")"
@@ -89,19 +93,36 @@ class Platform:
 		print command
 		self.putPipe(command)
 		
-	def setVisible(self, gw, flag):
-		command = "GWindow.setVisible(\"" + str(gw.gwd.ID) + "\", " + \
-				   str(flag).lower() + ")"
+	def setVisible(self, flag, gw = None, gobj = None):
+		if(gw != None):
+			command = "GWindow.setVisible(\"" + str(gw.gwd.ID) + "\", " + \
+						str(flag).lower() + ")"
+			print command
+			self.putPipe(command)
+		elif(gobj != None):
+			command = "GObject.setVisible(\"" + str(gobj.ID) + "\", " + \
+						str(flag).lower() + ")"
+			print command
+			self.putPipe(command)
+			
+	def openFileDialog(self, title, mode, path):
+		command = "File.openFileDialog(" + strlib.writeQuotedString(title) \
+					+ ", \"" + mode + "\", \"" + path + "\")"
 		print command
 		self.putPipe(command)
-
-  # TODO pp.remove(gobj)
+		result = self.getResult().strip()
+		print result
+		return result
+		
+	def getNextEvent(self, mask):
+		dummy = 1
+		
+	def waitForEvent(self, mask):
+		dummy = 1
+		
   # TODO pp.setSize(self, width, height)
-  # TODO pp.setVisible(self, flag)
   # TODO pp.contains(self, x, y)
-  # TODO pp.setFilled(self, flag)
   # TODO pp.getBounds(self)
-  
   # TODO pp.setLineWidth(self, lineWidth)
   # TODO pp.scale(self, sx, sy)
   # TODO pp.rotate(self, sx, sy)
@@ -109,15 +130,27 @@ class Platform:
   # TODO pp.sendToFront(gobj)
   # TODO pp.sendBackward(gobj)
   # TODO pp.sendToBack(gobj)
-  # TODO pp.requestFocus(self)
-  # TODO pp.clear(self)
-  # TODO pp.repaint(self)
   # TODO pp.setWindowTitle(self, title)
   # TODO pp.draw(self, gobj)
 
+	def parseEvent(self, line):
+		# TODO use shlex
+		dummy = 1
+  
 	def putPipe(self,command):
 		Platform.BACKEND.stdin.write(command+"\n")
 		Platform.BACKEND.stdin.flush()
+	
+	def getPipe(self):
+		return Platform.BACKEND.stdout.readline()
+		
+	def getResult(self):
+		while(True):
+			line = self.getPipe()
+			if(line.startswith("result:")): return line[7:]
+			if(line.startswith("event:")):
+				Platform.EVENT_QUEUE.put(parseEvent(line[6:]))
+	
 	
 	def startupMain(self):
 		args = ["java", "-jar", "spl.jar", "python.exe"]
@@ -129,5 +162,5 @@ class Platform:
 								   
 		Platform.BACKEND = backend
 	
-		#backend.kill()
+		#TODO backend.kill()
 

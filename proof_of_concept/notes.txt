@@ -1,5 +1,15 @@
 NOTES:
 
+Changed structure of openFile and readEntirefile, the former no longer 
+takes a stream instead it returns a file object since no empy file object
+can be create. The latter simply returns a list instead of taking the list 
+to add values into as an argument. Since a local vector in c++ would be 
+destructed after the method close an argument passed by reference was
+needed, however in Python the object would not be destructed, thus it makes
+sense to simply return a new list.
+
+OLD:
+
 Line 205 of gobjects.cpp fillFlag = true? shouldn't it be fillFlag = flag?
 
 Line 680-683 of gobjects.cpp

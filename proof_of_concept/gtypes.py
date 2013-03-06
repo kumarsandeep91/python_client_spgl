@@ -8,6 +8,7 @@ class GPoint:
 		self.y = y
 	
 	def __eq__(self, other):
+		if(other == None): return False
 		return self.x == other.x and self.y == other.y
 	
 	def __ne__(self, other):
@@ -20,8 +21,7 @@ class GPoint:
 		return self.y
 	
 	def toString(self):
-		# TODO cna't concat
-		return "(" + self.x + ", " + self.y + ")"
+		return "(" + str(self.x) + ", " + str(self.y) + ")"
 		
 
 class GDimension:
@@ -30,6 +30,7 @@ class GDimension:
 		self.height = height
 		
 	def __eq__(self, other):
+		if(other == None): return False
 		return self.width == other.width and self.height == other.height
 		
 	def __ne__(self, other):
@@ -42,8 +43,7 @@ class GDimension:
 		return self.height
 	
 	def toString(self):
-		# TODO cna't concat
-		return "(" + width + ", " + height + ")"
+		return "(" + str(width) + ", " + str(height) + ")"
 	
 	
 class GRectangle:
@@ -54,6 +54,7 @@ class GRectangle:
 		self.height = height
 		
 	def __eq__(self, other):
+		if(other == None): return False
 		return self.x == other.x and \
 			self.y == other.y and \
 			self.width == other.width and \
@@ -89,6 +90,6 @@ class GRectangle:
 		return False
 	
 	def toString(self):
-		# TODO cnat concat
-		return "(" + x + ", " + y + ", " + width + ", " + height + ")"
+		return "(" + str(x) + ", " + str(y) \
+				+ ", " + str(width) + ", " + str(height) + ")"
 		

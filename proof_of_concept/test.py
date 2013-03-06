@@ -34,12 +34,26 @@ rect.setColor(rgb = 0x00ff00)
 
 raw_input("\nPress enter to continue\n")
 
-'''
-requestFocus
-clear
-repaint
-setVisible
-'''
+rect.setVisible(False)
+
+raw_input("\nPress enter to continue\n")
+
+rect.setVisible(True)
+
+raw_input("\nPress enter to continue\n")
+
+window.repaint()
+
+raw_input("\nPress enter to continue\n")
+
+window.clear()
+
+raw_input("\nPress enter to continue\n")
+
+window.add(rect)
+window.requestFocus()
+
+raw_input("\nPress enter to continue\n")
 
 window.remove(rect)
 

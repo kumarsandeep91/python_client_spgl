@@ -26,6 +26,7 @@ class GWindowData:
 		__ID__ = __ID__ - 1
 		
 	def __eq__(self, other):
+		if(other == None): return False
 		return self.windowWidth == other.windowWidth and \
 			   self.windowHeight == other.windowHeight and \
 			   self.visible == other.visible and \
@@ -61,26 +62,26 @@ class GWindow:
 		self.setVisible(visible)
 	
 	def __eq__(self, other):
+		if(other == None): return False
 		return self.gwd == other.gwd
 	
 	def __ne__(self, other):
-		return self.gwd != other.gwd
+		return not(self == other)
 	
 	def close(self):
 		platform.Platform().close(self)
 		platform.Platform().deleteGWindow(self)
 	
 	def requestFocus(self):
-		# TODO pp.requestFocus(self)
-		dummy = 1
+		platform.Platform().requestFocus(self)
 	
 	def clear(self):
 		self.gwd.top.removeAll()
-		# TODO pp.clear(self)
+		platform.Platform().clear(self)
 	
 	def setVisible(self, flag):
 		self.gwd.visible = flag
-		# TODO pp.setVisible(self, flag)
+		platform.Platform().setVisible(flag, gw = self)
 	
 	def isVisible(self):
 		return self.gwd.visible
@@ -188,8 +189,7 @@ class GWindow:
 		return self.gwd.windowHeight
 	
 	def repaint(self):
-		# TODO pp.repaint(self)
-		dummy = 1
+		platform.Platform().repaint(self)
 	
 	def setWindowTitle(self, title):
 		self.gwd.windowTitle = title

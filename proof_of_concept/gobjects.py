@@ -4,6 +4,8 @@ import platform
 
 __ID__ = 0
 
+# TODO: equals operators?
+
 class GObject:
 	def __init__(self):
 		global __ID__
@@ -93,7 +95,7 @@ class GObject:
 		
 	def setVisible(self, flag):
 		self.visible = flag
-		# TODO pp.setVisible(self, flag)
+		platform.Platform().setVisible(flag, gobj = self)
 		
 	def isVisible(self):
 		return self.visible
@@ -154,9 +156,7 @@ class GRect(GObject):
 		self.height = height
 		self.fillFlag = False
 		self.fillColor = ""
-		# HERE
 		platform.Platform().createGRect(self, width, height)
-		# TODO pp.createGRect(self, width, height)
 			
 	def setSize(self, size=None, width=None, height=None):
 		if(size != None):
@@ -191,9 +191,7 @@ class GRect(GObject):
 		
 	def setFilled(self, flag):
 		self.fillFlag = flag
-		# HERE
 		platform.Platform().setFilled(self, flag)
-		# TODO pp.setFilled(self, flag)
 		
 	def isFilled(self):
 		return self.fillFlag
@@ -206,9 +204,7 @@ class GRect(GObject):
 		if(rgb == None): return
 		
 		color = gwindow.convertRGBToColor(rgb)
-		# HERE
 		platform.Platform().setFillColor(self, color)
-		# TODO pp.setFillColor(self, color)
 		
 	def getFillColor(self):
 		return self.fillColor
@@ -217,9 +213,8 @@ class GRect(GObject):
 		return "GRect"
 		
 	def toString(self):
-		# TODO cna't concat
-		return "GRect(" + self.x + ", " + self.y + ", " + \
-				self.width + ", " + self.height + ")"
+		return "GRect(" + str(self.x) + ", " + str(self.y) + ", " + \
+				str(self.width) + ", " + str(self.height) + ")"
 				
 	# TODO GRect::GRect() {
 	#	 /* Called only by the GRoundRect and G3DRect subclasses */
@@ -229,17 +224,13 @@ class GCompound(GObject):
 	def __init__(self):
 		GObject.__init__(self)
 		self.contents = []
-		# HERE
 		platform.Platform().createGCompound(self)
-		# TODO pp.createGCompound(self)
 		
 	def add(self, gobj, x=None, y=None):
 		if(x != None and y != None):
 			gobj.setLocation(x=x, y=y)
 			
-		# HERE
 		platform.Platform().add(self, gobj)
-		# TODO pp.add(self, gobj)
 		self.contents.append(gobj)
 		gobj.parent = self
 		
@@ -325,9 +316,7 @@ class GCompound(GObject):
 	def removeAt(self, index):
 		gobj = self.contents[index]
 		self.contents.pop(index)
-		# HERE
 		platform.Platform().remove(gobj)
-		# TODO pp.remove(gobj)
 		gobj.parent = None
 '''
 /*

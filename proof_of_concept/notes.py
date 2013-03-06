@@ -1,4 +1,7 @@
+import sys
+import os
 
-a = "A"
-A = a.lower()
-print A
+a = (0,1,2)
+#print a
+print a[0]
+
